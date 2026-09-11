@@ -1,0 +1,31 @@
+PASS: EXE compiled with Windows .NET Framework C# compiler.
+PASS: root change derives temp/inbox; manual TEMP override preserves inbox.
+PASS: isolated installation creates settings, launcher, EXE and desktop shortcuts.
+PASS: reopening configurator loads persisted paths.
+PASS: second save updates inbox and preserves previous settings backup.
+PASS: installed launcher consumes custom TEMP and inbox; TOML update is idempotent.
+PASS: rendered window visually inspected; all controls and labels visible.
+PASS: original launcher environment and configuration tests.
+PENDING: user installation and real ChatGPT restart / file-preview test.
+No system or user TEMP/TMP environment values were modified.
+PASS: conventional Inno Setup 7 installer compiled successfully.
+PASS: English installation and Polish reconfiguration completed in isolated mode.
+PASS: installer persists custom root, TEMP and inbox and retains the previous settings file.
+PASS: normal install provides per-user uninstall registration and Start menu shortcuts.
+PASS: product renamed to ChatGPT Workspace Setup 1.1.0 across installer metadata and shortcuts.
+PASS: official installed ChatGPT icon embedded in installer, configurator and shortcuts.
+PASS: redesigned configuration window rendered and visually inspected after removing an incompatible large ICO frame.
+PASS: final 1.1.0 English installation and Polish reconfiguration passed in isolated mode.
+PASS: version 1.1.1 replaces the clipped Inno Tasks checkbox with a dedicated two-option shortcut page.
+PASS: 1.1.1 compiles and completes an isolated Polish installation with correct saved paths.
+PASS: version 1.1.2 disables operating-system language detection, so English is selected by default and Polish remains available.
+PASS: version 1.1.3 stores the selected installer language for launcher messages.
+PASS: version 1.1.3 uses a windowless executable instead of targeting PowerShell directly from shortcuts.
+PASS: version 1.1.3 uses the full-size official dark-taskbar ChatGPT application icon.
+PASS: version 1.1.4 configures Per-Monitor V2 DPI awareness for sharp rendering.
+PASS: version 1.1.4 settings UI follows the language saved by the installer and uses redesigned rounded buttons.
+PASS: version 1.1.5 keeps the settings window inside the current monitor work area and activates it when shown.
+PASS: version 1.1.5 adds DPI-scaled left padding to the desktop-shortcut option list.
+PASS: version 1.1.5 launcher script is ASCII-safe for Windows PowerShell 5.1 while reconstructing Polish diacritics at runtime.
+PASS: version 1.1.6 replaces the clipping option-list control with standalone radio buttons positioned inside a custom page.
+NOTE: interactive screenshot capture was unavailable on the isolated desktop; all spawned test processes were closed and no installation occurred in that attempt.

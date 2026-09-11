@@ -1,0 +1,22 @@
+# Build outputs
+*.exe
+*.lnk
+*.log
+dist/
+
+# Local validation artifacts
+preview.png
+ui-*.png
+self-test-*/
+installed-self-test-*/
+test-install-*/
+validation.txt
+
+# Local legacy launchers
+ChatGPT.cmd
+
+# Editor and OS files
+.vs/
+.vscode/
+Thumbs.db
+Desktop.ini
