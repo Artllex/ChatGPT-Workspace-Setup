@@ -69,6 +69,21 @@ static class FirefoxDownloadHost {
             try { File.Delete(source); }
             catch { File.Delete(destination); throw; }
         }
+        // An optional privileged Firefox module consumes these data-only requests.
+        // Never persist private download metadata.
+        if(message.ContainsKey("startTime") && message["startTime"] != null &&
+           message.ContainsKey("sourceUrl") && message["sourceUrl"] != null &&
+           (!message.ContainsKey("isPrivate") || !Convert.ToBoolean(message["isPrivate"]))) {
+            try {
+                string queue=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"sync-requests");
+                Directory.CreateDirectory(queue);
+                string request=Path.Combine(queue,Guid.NewGuid().ToString("N")+".json");
+                string json=new JavaScriptSerializer().Serialize(new { source=source, destination=destination,
+                    startTime=Convert.ToDouble(message["startTime"]), sourceUrl=Convert.ToString(message["sourceUrl"]) });
+                File.WriteAllText(request+".tmp",json,new UTF8Encoding(false));
+                File.Move(request+".tmp",request);
+            } catch { /* Routing remains successful if optional synchronization is unavailable. */ }
+        }
         return destination;
     }
 

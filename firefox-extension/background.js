@@ -131,6 +131,9 @@ browser.downloads.onChanged.addListener(async delta => {
     if (matches.length && matches[0].filename) {
       const response = await browser.runtime.sendNativeMessage(HOST, {
         action: "move",
+        startTime: Date.parse(matches[0].startTime),
+        sourceUrl: matches[0].url,
+        isPrivate: matches[0].incognito === true,
         source: matches[0].filename,
         ...route
       });

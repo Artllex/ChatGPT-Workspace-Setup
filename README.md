@@ -70,6 +70,15 @@ The add-on requests access to all website addresses so it can recognize the
 source domain of every new download and apply user-defined routes. Firefox's
 protected internal pages remain inaccessible to extensions by browser design.
 
+## Native Firefox download-location synchronization
+
+Download Router 1.1.6 and the updated native host emit local relocation requests
+for the integrated module in [Firefox ZIP Quick Extract](https://github.com/Artllex/firefox-zip-quick-extract).
+Both components must be updated. The module refreshes Firefox's native download
+target and history after routing. Private download metadata is excluded.
+The integration passed isolated Firefox persistence tests and user acceptance.
+It relies on internal Firefox APIs, so future compatibility is not guaranteed.
+
 ## Scope
 
 This project is an independent utility. It is not affiliated with or endorsed by
