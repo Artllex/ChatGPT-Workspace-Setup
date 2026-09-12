@@ -1,6 +1,6 @@
 # Instalacja i zmiana folderów
 
-Zalecana wersja: uruchom `dist\ChatGPT-Workspace-Setup-1.1.6.exe`.
+Zalecana wersja: uruchom `dist\ChatGPT-Workspace-Setup-1.2.3.exe`.
 Jest to standardowy instalator Windows po angielsku i polsku. Angielski jest
 wybrany domyślnie. Instalator tworzy również wpis w
 Zainstalowanych aplikacjach, skrótami menu Start i deinstalatorem.
@@ -37,3 +37,15 @@ i `installer\setup.iss`. Ponowna kompilacja: `Build-Installer.ps1`.
 Testy obejmują zapis i ponowne wczytanie folderów, zmianę inbox przy ponownej instalacji,
 tworzenie skrótów w izolowanym katalogu testowym, edycję TOML i przekazywanie TEMP/TMP.
 Rzeczywiste uruchomienie ChatGPT i podgląd pliku należy sprawdzić po instalacji i restarcie.
+
+## Przekierowanie pobrań w Firefoksie
+
+Instalator rejestruje lokalny moduł rozszerzenia **Download Router**.
+Wbudowana reguła ChatGPT zapisuje pliki w układzie
+`TEMP\<nazwa rozmowy>`. W ustawieniach rozszerzenia można dodawać kolejne reguły
+`domena → folder`; obejmują one również subdomeny. Przycisk **Wybierz…** otwiera
+systemowy wybór folderu. Przed trwałą instalacją w standardowym Firefoksie pakiet
+XPI musi zostać podpisany przez Mozillę. Język ustawień domyślnie wynika z języka
+Firefoksa, ale można ręcznie wybrać angielski albo polski. Dostęp do adresów
+wszystkich witryn jest potrzebny do rozpoznawania portalu źródłowego. Chronione
+strony wewnętrzne Firefoksa pozostają niedostępne dla rozszerzeń.

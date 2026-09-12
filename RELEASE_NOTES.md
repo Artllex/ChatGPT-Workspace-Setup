@@ -1,6 +1,9 @@
-# ChatGPT Workspace Setup 1.1.6
+# ChatGPT Workspace Setup 1.2.3
 
-First public release.
+- opens the latest routed download in Windows Explorer, selects it, and gives
+  it focus;
+- Registers the Firefox native host in both 32-bit and 64-bit registry views.
+- adds configurable Firefox download routing.
 
 ## Included
 
@@ -11,6 +14,10 @@ First public release.
 - automatic discovery of the installed ChatGPT package;
 - windowless launcher, high-DPI settings interface, and Windows uninstaller;
 - optional desktop shortcut and Start menu entries.
+- built-in `TEMP\<conversation title>` routing for ChatGPT downloads;
+- **Download Router** settings for mapping other website domains to
+  chosen local folders;
+- native folder picker, duplicate-name handling, and Windows-safe folder names.
 
 ## Requirements
 

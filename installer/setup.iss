@@ -1,5 +1,5 @@
 #define AppName "ChatGPT Workspace Setup"
-#define AppVersion "1.1.6"
+#define AppVersion "1.2.3"
 #define AppPublisher "Artllex"
 #define SourceRoot ".."
 
@@ -83,6 +83,12 @@ Source: "{#SourceRoot}\ChatGPT.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceRoot}\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceRoot}\INSTALACJA.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceRoot}\INSTALLATION.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceRoot}\FirefoxDownloadHost.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceRoot}\Download-Router.xpi"; DestDir: "{app}"; Flags: ignoreversion
+
+[Registry]
+Root: HKCU32; Subkey: "Software\Mozilla\NativeMessagingHosts\com.artllex.download_router"; ValueType: string; ValueName: ""; ValueData: "{app}\firefox-native-host.json"; Flags: uninsdeletekey; Check: IsRealInstall
+Root: HKCU64; Subkey: "Software\Mozilla\NativeMessagingHosts\com.artllex.download_router"; ValueType: string; ValueName: ""; ValueData: "{app}\firefox-native-host.json"; Flags: uninsdeletekey; Check: IsRealInstall
 
 [Icons]
 Name: "{group}\{cm:RunName}"; Filename: "{app}\ChatGPT-Workspace.exe"; WorkingDir: "{app}"; IconFilename: "{app}\ChatGPT-Workspace.exe"; Check: IsRealInstall
@@ -96,6 +102,7 @@ Type: files; Name: "{app}\ChatGPT-Folder-Setup.exe"
 [UninstallDelete]
 Type: files; Name: "{app}\folders.xml"
 Type: files; Name: "{app}\folders.xml.previous"
+Type: files; Name: "{app}\firefox-native-host.json"
 
 [Code]
 var
@@ -136,6 +143,13 @@ begin
   StringChangeEx(Result, '>', '&gt;', True);
   StringChangeEx(Result, '"', '&quot;', True);
   StringChangeEx(Result, '''', '&apos;', True);
+end;
+
+function JsonEscape(Value: string): string;
+begin
+  Result := Value;
+  StringChangeEx(Result, '\', '\\', True);
+  StringChangeEx(Result, '"', '\"', True);
 end;
 
 function XmlValue(Xml, Tag: string): string;
@@ -222,7 +236,7 @@ begin
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
-var Xml, Backup: string;
+var Xml, Backup, NativeManifest: string;
 begin
   if CurStep = ssPostInstall then begin
     ForceDirectories(RootPage.Values[0]); ForceDirectories(PathsPage.Values[0]); ForceDirectories(PathsPage.Values[1]);
@@ -236,5 +250,13 @@ begin
       RenameFile(ExpandConstant('{app}\folders.xml'), Backup);
     end;
     SaveStringToFile(ExpandConstant('{app}\folders.xml'), Xml, False);
+    NativeManifest := '{' + #13#10 +
+      '  "name": "com.artllex.download_router",' + #13#10 +
+      '  "description": "Routes Firefox downloads to configured local folders",' + #13#10 +
+      '  "path": "' + JsonEscape(ExpandConstant('{app}\FirefoxDownloadHost.exe')) + '",' + #13#10 +
+      '  "type": "stdio",' + #13#10 +
+      '  "allowed_extensions": ["download-router@artllex"]' + #13#10 +
+      '}' + #13#10;
+    SaveStringToFile(ExpandConstant('{app}\firefox-native-host.json'), NativeManifest, False);
   end;
 end;

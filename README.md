@@ -8,6 +8,11 @@ It configures two independent locations:
 - a private `TEMP` / `TMP` directory inherited only by ChatGPT and its child processes;
 - the `projectlessWorkspaceRoot` used for Work and Codex tasks without a project.
 
+Version 1.2 also includes the Firefox add-on **Download Router**. Its
+built-in ChatGPT rule stores each download in
+`TEMP\<conversation title>`. Additional website-to-folder routes can be added in
+the add-on settings; a route for `example.com` also covers its subdomains.
+
 The default layout is:
 
 ```text
@@ -29,10 +34,15 @@ separate Start menu entries for launching ChatGPT and reopening the settings.
 - automatic backup before changing the ChatGPT configuration
 - high-DPI-aware interface and a windowless launcher
 - standard Windows uninstaller
+- configurable Firefox download routes for selected websites
+- a bilingual, high-DPI add-on settings page with a native folder picker
+- automatic Firefox-language selection with an English/Polish override
+- persistent background operation and a toolbar panel that reveals the latest
+  routed file in Windows Explorer or opens the settings
 
 ## Installation
 
-Download `ChatGPT-Workspace-Setup-1.1.6.exe` from the latest release and run it.
+Download `ChatGPT-Workspace-Setup-1.2.3.exe` from the latest release and run it.
 Close ChatGPT completely, including its tray process, before starting ChatGPT
 through the new **ChatGPT Workspace** shortcut.
 
@@ -54,6 +64,11 @@ the launcher files and shortcuts but does not overwrite the selected folders.
 
 The project uses the .NET Framework C# compiler included with Windows and Inno
 Setup 7. Run `Build-Installer.ps1` to build the executables and installer.
+The Firefox XPI must be signed by Mozilla before normal installation.
+
+The add-on requests access to all website addresses so it can recognize the
+source domain of every new download and apply user-defined routes. Firefox's
+protected internal pages remain inaccessible to extensions by browser design.
 
 ## Scope
 
